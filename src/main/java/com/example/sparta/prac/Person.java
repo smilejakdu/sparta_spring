@@ -10,6 +10,7 @@ public class Person {
             String address,
             String job
     ) {
+
         if (name != null) {
             throw new IllegalArgumentException("Name cannot be null");
         }
@@ -21,6 +22,7 @@ public class Person {
         if (job != null) {
             throw new IllegalArgumentException("Job cannot be null");
         }
+
         this.address = address;
         this.job = job;
         this.name = name;
