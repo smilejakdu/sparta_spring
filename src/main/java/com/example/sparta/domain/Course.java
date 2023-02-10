@@ -19,4 +19,9 @@ public class Course extends Timestamped {
 
     @Column(name = "tutor", nullable = false)
     private String tutor;
+
+    public void update(CourseRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.tutor = requestDto.getTutor();
+    }
 }
