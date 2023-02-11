@@ -1,7 +1,7 @@
 package com.example.sparta.controller;
 
 import com.example.sparta.domain.Course;
-import com.example.sparta.domain.CourseRepository;
+import com.example.sparta.repository.CourseRepository;
 import com.example.sparta.domain.CourseRequestDto;
 import com.example.sparta.service.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +43,11 @@ public class CourseController {
             @RequestBody CourseRequestDto requestDto
     ) {
         return courseService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/api/courses/{id}")
+    public Long deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return id;
     }
 }

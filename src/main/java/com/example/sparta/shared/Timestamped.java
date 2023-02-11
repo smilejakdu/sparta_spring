@@ -1,4 +1,4 @@
-package com.example.sparta.domain;
+package com.example.sparta.shared;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
