@@ -4,9 +4,11 @@ import com.example.sparta.domain.MemoRequestDto;
 import com.example.sparta.memo.Memo;
 import com.example.sparta.repository.MemoRepository;
 import lombok.AllArgsConstructor;
+import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -14,9 +16,14 @@ import java.util.List;
 public class MemoService {
     private final MemoRepository memoRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Memo> getMemoList() {
-        return memoRepository.findAllByOrderByModifiedAtDesc();
+        LocalDateTime beforeOneDay = LocalDateTime.now().minusDays(1);
+        LocalDateTime nowDay = LocalDateTime.now();
+        return memoRepository.findAllByModifiedAtBeforeOrderByModifiedAtDesc(
+                nowDay,
+                beforeOneDay
+        );
     }
 
     @Transactional

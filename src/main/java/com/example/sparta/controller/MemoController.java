@@ -3,7 +3,6 @@ package com.example.sparta.controller;
 import com.example.sparta.domain.MemoRequestDto;
 import com.example.sparta.memo.Memo;
 import com.example.sparta.service.MemoService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
