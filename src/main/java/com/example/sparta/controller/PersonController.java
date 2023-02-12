@@ -1,11 +1,10 @@
 package com.example.sparta.controller;
 
-import com.example.sparta.domain.CreatePersonRequestDto;
+import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.Person;
-import com.example.sparta.domain.UpdatePersonRequestDto;
+import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

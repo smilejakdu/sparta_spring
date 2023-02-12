@@ -1,5 +1,6 @@
 package com.example.sparta.domain;
 
+import com.example.sparta.dto.CourseRequestDto;
 import com.example.sparta.shared.Timestamped;
 import lombok.Data;
 import lombok.NoArgsConstructor;

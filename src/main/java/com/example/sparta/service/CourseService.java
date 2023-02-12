@@ -2,7 +2,7 @@ package com.example.sparta.service;
 
 import com.example.sparta.domain.Course;
 import com.example.sparta.repository.CourseRepository;
-import com.example.sparta.domain.CourseRequestDto;
+import com.example.sparta.dto.CourseRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

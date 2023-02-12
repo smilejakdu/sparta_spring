@@ -1,10 +1,9 @@
 package com.example.sparta.service;
 
-import com.example.sparta.domain.MemoRequestDto;
+import com.example.sparta.dto.MemoRequestDto;
 import com.example.sparta.memo.Memo;
 import com.example.sparta.repository.MemoRepository;
 import lombok.AllArgsConstructor;
-import net.bytebuddy.asm.Advice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +19,9 @@ public class MemoService {
     public List<Memo> getMemoList() {
         LocalDateTime beforeOneDay = LocalDateTime.now().minusDays(1);
         LocalDateTime nowDay = LocalDateTime.now();
-        return memoRepository.findAllByModifiedAtBeforeOrderByModifiedAtDesc(
-                nowDay,
-                beforeOneDay
+        return memoRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(
+                beforeOneDay,
+                nowDay
         );
     }
 

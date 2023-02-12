@@ -1,8 +1,8 @@
 package com.example.sparta.service;
 
-import com.example.sparta.domain.CreatePersonRequestDto;
+import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.Person;
-import com.example.sparta.domain.UpdatePersonRequestDto;
+import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

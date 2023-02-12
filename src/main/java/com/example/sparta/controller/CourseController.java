@@ -2,7 +2,7 @@ package com.example.sparta.controller;
 
 import com.example.sparta.domain.Course;
 import com.example.sparta.repository.CourseRepository;
-import com.example.sparta.domain.CourseRequestDto;
+import com.example.sparta.dto.CourseRequestDto;
 import com.example.sparta.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

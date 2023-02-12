@@ -1,6 +1,6 @@
 package com.example.sparta.controller;
 
-import com.example.sparta.domain.MemoRequestDto;
+import com.example.sparta.dto.MemoRequestDto;
 import com.example.sparta.memo.Memo;
 import com.example.sparta.service.MemoService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class MemoController {
     }
 
     @GetMapping()
-    public List<Memo> getMemo() {
+    public List<Memo> getMemoList() {
         return memoService.getMemoList();
     }
 
