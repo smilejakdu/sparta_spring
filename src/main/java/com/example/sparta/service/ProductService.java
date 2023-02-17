@@ -37,16 +37,11 @@ public class ProductService {
     }
 
     @Transactional
-    public Long updateProduct(Long id, ProductRequestDto requestDto) {
+    public Long updateProduct(Long id, ProductMypriceRequestDto requestDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
 
-//      찾은 product 를 업데이트 변경해서 save 하기
-        product.setTitle(requestDto.getTitle());
-        product.setImage(requestDto.getImage());
-        product.setLink(requestDto.getLink());
-        product.setLprice(requestDto.getLprice());
-
+        product.setMyprice(requestDto.getMyprice());
         productRepository.save(product);
         return id;
     }

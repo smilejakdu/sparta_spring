@@ -2,6 +2,7 @@ package com.example.sparta.controller;
 
 import com.example.sparta.domain.Product;
 import com.example.sparta.dto.ItemDto;
+import com.example.sparta.dto.ProductMypriceRequestDto;
 import com.example.sparta.dto.ProductRequestDto;
 import com.example.sparta.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public Long updateProduct(
             @PathVariable Long id,
-            @RequestBody ProductRequestDto requestDto
+            @RequestBody ProductMypriceRequestDto requestDto
     ) {
         return productService.updateProduct(id, requestDto);
     }
