@@ -3,7 +3,6 @@ package com.example.sparta.domain;
 import com.example.sparta.shared.Timestamped;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
