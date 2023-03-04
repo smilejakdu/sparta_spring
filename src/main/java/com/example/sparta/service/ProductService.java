@@ -5,7 +5,6 @@ import com.example.sparta.dto.ItemDto;
 import com.example.sparta.dto.ProductMypriceRequestDto;
 import com.example.sparta.dto.ProductRequestDto;
 import com.example.sparta.repository.ProductRepository;
-import com.example.sparta.shared.NaverShopSearch;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +16,6 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    private final NaverShopSearch naverShopSearch;
 
     @Transactional
     public List<Product> getProducts() {
@@ -50,11 +47,6 @@ public class ProductService {
     public Long deleteProduct(Long id) {
         productRepository.deleteById(id);
         return id;
-    }
-
-    @Transactional
-    public List<ItemDto> getNaverProductsByKeyword(String keyword) {
-        return naverShopSearch.search(keyword);
     }
 
     @Transactional
