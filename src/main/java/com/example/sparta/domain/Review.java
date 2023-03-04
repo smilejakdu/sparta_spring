@@ -9,19 +9,21 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class Person extends Timestamped {
-
+public class Review extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "content", nullable = false)
+    private String content;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "score", nullable = false)
+    private int score;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @ManyToOne
+    private Product product;
+
+    @ManyToOne
+    private Person person;
 }
