@@ -7,5 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class CreatePersonRequestDto {
     private String name;
+
     private String email;
+
+    private String password;
 }

@@ -1,7 +1,6 @@
 package com.example.sparta.controller;
 
 import com.example.sparta.domain.Product;
-import com.example.sparta.dto.ItemDto;
 import com.example.sparta.dto.ProductMypriceRequestDto;
 import com.example.sparta.dto.ProductRequestDto;
 import com.example.sparta.service.ProductService;
@@ -36,17 +35,5 @@ public class ProductController {
             @RequestBody ProductMypriceRequestDto requestDto
     ) {
         return productService.updateProduct(id, requestDto);
-    }
-
-    @DeleteMapping("/{id}")
-    public Long deleteProduct(@PathVariable Long id) {
-        return productService.deleteProduct(id);
-    }
-
-    @GetMapping("/naver/search")
-    public List<ItemDto> getNaverProductsByKeyword(
-            @RequestParam String query
-    ) {
-        return productService.getNaverProductsByKeyword(query);
     }
 }

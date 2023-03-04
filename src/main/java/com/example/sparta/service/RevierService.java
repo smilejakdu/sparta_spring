@@ -11,9 +11,4 @@ import org.springframework.transaction.annotation.Transactional;
 public class RevierService {
 
     private final ReviewRepository reviewRepository;
-
-    @Transactional
-    public Review createReview() {
-
-    }
 }
