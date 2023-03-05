@@ -69,6 +69,17 @@ public class PersonService {
     }
 
     @Transactional
+    public Person getMyPage(
+            String jwtToken
+    ) {
+        JwtService jwtService = new JwtService();
+        Long userId = jwtService.getUserIdFromToken(jwtToken);
+        return personRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
+        );
+    }
+
+    @Transactional
     public Person updatePerson(
             Long id,
             UpdatePersonRequestDto requestDto
