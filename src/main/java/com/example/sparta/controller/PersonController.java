@@ -3,11 +3,13 @@ package com.example.sparta.controller;
 import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.Person;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
+import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,10 +31,11 @@ public class PersonController {
     }
 
     @PostMapping("/login")
-    public String login(
-            @RequestBody LoginRequestDto requestDto
+    public LoginResponseDto login(
+            @RequestBody LoginRequestDto requestDto,
+            HttpServletResponse response
     ) {
-        return personService.login(requestDto);
+        return personService.login(requestDto, response);
     }
 
     @PutMapping("/{id}")
