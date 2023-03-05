@@ -3,8 +3,11 @@ package com.example.sparta.service;
 import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.Person;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
+import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.repository.PersonRepository;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,14 +47,25 @@ public class PersonService {
     }
 
     @Transactional
-    public String login(
-            LoginRequestDto requestDto
+    public LoginResponseDto login(
+            LoginRequestDto requestDto,
+            HttpServletResponse response
     ) {
         Person person = personRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("해당 person이 존재하지 않습니다."));
 
         JwtService jwtService = new JwtService();
-        return jwtService.createToken(person.getId());
+        String jwtToken = jwtService.createToken(person.getId());
+        Cookie cookie = new Cookie("jwt", jwtToken);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 7); // 1 week
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+        return LoginResponseDto.builder()
+                .email(person.getEmail())
+                .token(jwtToken)
+                .message("SUCCESS")
+                .build();
     }
 
     @Transactional
