@@ -1,5 +1,6 @@
 package com.example.sparta.dto;
 
+import com.example.sparta.shared.Enum.Age;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,4 +12,6 @@ public class CreatePersonRequestDto {
     private String email;
 
     private String password;
+
+    private Age age;
 }

@@ -38,6 +38,14 @@ public class PersonController {
         return personService.login(requestDto, response);
     }
 
+    @GetMapping("/mypage")
+    public Person getMyPage(
+            @RequestHeader("Authorization") String jwtToken
+    ) {
+        System.out.println("jwtToken = " + jwtToken);
+        return personService.getMyPage(jwtToken);
+    }
+
     @PutMapping("/{id}")
     public Person updatePerson(
             @PathVariable Long id,
