@@ -21,21 +21,21 @@ public class Person extends Timestamped {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "password", nullable = false)
-    private String password;
-
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "password", nullable = false)
+    private String password;
 //    enum
     @Column(name = "age", nullable = false)
     @Enumerated(EnumType.STRING)
     private Age age;
 
     @Builder
-    public Person(String name, String password, String email) {
+    public Person(String name, String password, String email, Age age) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.age = age;
     }
 }

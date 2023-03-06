@@ -40,6 +40,7 @@ public class PersonService {
         Person person = Person.builder()
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
+                .age(requestDto.getAge())
                 .password(hashedPassword)
                 .build();
 
@@ -54,8 +55,14 @@ public class PersonService {
         Person person = personRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("해당 person이 존재하지 않습니다."));
 
+        if (!passwordEncoder.matches(requestDto.getPassword(), person.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        System.out.println("person.getId():" + person.getId());
+
         JwtService jwtService = new JwtService();
         String jwtToken = jwtService.createToken(person.getId());
+        System.out.println("jwtToken:" + jwtToken);
         Cookie cookie = new Cookie("jwt", jwtToken);
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24 * 7); // 1 week

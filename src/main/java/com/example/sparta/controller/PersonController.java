@@ -42,6 +42,7 @@ public class PersonController {
     public Person getMyPage(
             @RequestHeader("Authorization") String jwtToken
     ) {
+        System.out.println("jwtToken = " + jwtToken);
         return personService.getMyPage(jwtToken);
     }
 
