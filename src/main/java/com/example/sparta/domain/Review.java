@@ -1,6 +1,7 @@
 package com.example.sparta.domain;
 
 import com.example.sparta.shared.Timestamped;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,21 @@ public class Review extends Timestamped {
 
     @ManyToOne
     private Person person;
+
+    private String createdAt;
+
+    @Builder
+    public Review(
+            String content,
+            int score,
+            Product product,
+            Person person,
+            String createdAt
+    ) {
+        this.content = content;
+        this.score = score;
+        this.product = product;
+        this.person = person;
+        this.createdAt = createdAt;
+    }
 }
