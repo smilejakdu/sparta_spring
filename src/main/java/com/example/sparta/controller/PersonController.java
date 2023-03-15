@@ -6,12 +6,15 @@ import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.service.PersonService;
+import com.example.sparta.shared.SwaggerConfig;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Api(tags = SwaggerConfig.PERSON)
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/person")
