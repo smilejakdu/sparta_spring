@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class Person extends Timestamped {
+public class User extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,7 +32,7 @@ public class Person extends Timestamped {
     private Age age;
 
     @Builder
-    public Person(String name, String password, String email, Age age) {
+    public User(String name, String password, String email, Age age) {
         this.name = name;
         this.password = password;
         this.email = email;

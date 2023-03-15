@@ -3,7 +3,6 @@ package com.example.sparta.shared;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Tag;
@@ -14,7 +13,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
-    public static final String PERSON = "PERSON";
+    public static final String USER = "USER";
+
+    public static final String PRODUCT ="PRODUCT";
+
+    public static final String REVIEW = "REVIEW";
 
     @Bean
     public Docket api() {
@@ -24,7 +27,9 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.example.sparta"))
                 .build()
                 .tags(
-                        new Tag(PERSON, String.format("%s %s", PERSON, " Apis"))
+                        new Tag(USER, String.format("%s %s", USER, " Apis")),
+                        new Tag(PRODUCT, String.format("%s %s",PRODUCT, " Apis")),
+                        new Tag(REVIEW, String.format("%s %s",REVIEW, " Apis"))
                 )
                 .apiInfo(apiInfo());
     }

@@ -1,11 +1,11 @@
 package com.example.sparta.controller;
 
 import com.example.sparta.dto.CreatePersonRequestDto;
-import com.example.sparta.domain.Person;
+import com.example.sparta.domain.User;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
-import com.example.sparta.service.PersonService;
+import com.example.sparta.service.UserService;
 import com.example.sparta.shared.SwaggerConfig;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Api(tags = SwaggerConfig.PERSON)
+@Api(tags = SwaggerConfig.USER)
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/person")
-public class PersonController {
-    private final PersonService personService;
+@RequestMapping("/api/user")
+public class UserController {
+    private final UserService userService;
 
     @GetMapping()
-    public List<Person> getPeople() {
-        return personService.getPeople();
+    public List<User> getPeople() {
+        return userService.getPeople();
     }
 
     @PostMapping()
-    public Person createPerson(
+    public User createPerson(
             @RequestBody CreatePersonRequestDto requestDto
     ) {
-        return personService.createPerson(requestDto);
+        return userService.createPerson(requestDto);
     }
 
     @PostMapping("/login")
@@ -38,27 +38,27 @@ public class PersonController {
             @RequestBody LoginRequestDto requestDto,
             HttpServletResponse response
     ) {
-        return personService.login(requestDto, response);
+        return userService.login(requestDto, response);
     }
 
     @GetMapping("/mypage")
-    public Person getMyPage(
+    public User getMyPage(
             @RequestHeader("Authorization") String jwtToken
     ) {
         System.out.println("jwtToken = " + jwtToken);
-        return personService.getMyPage(jwtToken);
+        return userService.getMyPage(jwtToken);
     }
 
     @PutMapping("/{id}")
-    public Person updatePerson(
+    public User updateUser(
             @PathVariable Long id,
             @RequestBody UpdatePersonRequestDto requestDto
     ) {
-        return personService.updatePerson(id, requestDto);
+        return userService.updateUser(id, requestDto);
     }
 
     @DeleteMapping("/{id}")
     public Long deletePerson(@PathVariable Long id) {
-        return personService.deletePerson(id);
+        return userService.deletePerson(id);
     }
 }

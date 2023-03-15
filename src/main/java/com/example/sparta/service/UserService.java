@@ -1,11 +1,11 @@
 package com.example.sparta.service;
 
 import com.example.sparta.dto.CreatePersonRequestDto;
-import com.example.sparta.domain.Person;
+import com.example.sparta.domain.User;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
-import com.example.sparta.repository.PersonRepository;
+import com.example.sparta.repository.UserRepository;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -17,34 +17,34 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PersonService {
-    private final PersonRepository personRepository;
+public class UserService {
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public List<Person> getPeople() {
-        return personRepository.findAll();
+    public List<User> getPeople() {
+        return userRepository.findAll();
     }
 
     @Transactional
-    public Person createPerson(
+    public User createPerson(
             CreatePersonRequestDto requestDto
     ) {
         String email = requestDto.getEmail();
-        if (personRepository.findByEmail(email).isPresent()) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         }
 
         String hashedPassword = passwordEncoder.encode(requestDto.getPassword());
 
-        Person person = Person.builder()
+        User person = User.builder()
                 .name(requestDto.getName())
                 .email(requestDto.getEmail())
                 .age(requestDto.getAge())
                 .password(hashedPassword)
                 .build();
 
-        return personRepository.save(person);
+        return userRepository.save(person);
     }
 
     @Transactional
@@ -52,7 +52,7 @@ public class PersonService {
             LoginRequestDto requestDto,
             HttpServletResponse response
     ) {
-        Person person = personRepository.findByEmail(requestDto.getEmail())
+        User person = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("해당 person이 존재하지 않습니다."));
 
         if (!passwordEncoder.matches(requestDto.getPassword(), person.getPassword())) {
@@ -76,22 +76,22 @@ public class PersonService {
     }
 
     @Transactional
-    public Person getMyPage(
+    public User getMyPage(
             String jwtToken
     ) {
         JwtService jwtService = new JwtService();
         Long userId = jwtService.getUserIdFromToken(jwtToken);
-        return personRepository.findById(userId).orElseThrow(
+        return userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
         );
     }
 
     @Transactional
-    public Person updatePerson(
+    public User updateUser(
             Long id,
             UpdatePersonRequestDto requestDto
     ) {
-        Person person = personRepository.findById(id).orElseThrow(
+        User person = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
         );
 
@@ -103,11 +103,11 @@ public class PersonService {
 
     @Transactional
     public Long deletePerson(Long id) {
-        Person person = personRepository.findById(id).orElseThrow(
+        User person = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
         );
 
-        personRepository.delete(person);
+        userRepository.delete(person);
         return id;
     }
 }

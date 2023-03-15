@@ -26,7 +26,7 @@ public class Review extends Timestamped {
     private Product product;
 
     @ManyToOne
-    private Person person;
+    private User user;
 
     private String createdAt;
 
@@ -35,13 +35,13 @@ public class Review extends Timestamped {
             String content,
             int score,
             Product product,
-            Person person,
+            User user,
             String createdAt
     ) {
         this.content = content;
         this.score = score;
         this.product = product;
-        this.person = person;
+        this.user = user;
         this.createdAt = createdAt;
     }
 }
