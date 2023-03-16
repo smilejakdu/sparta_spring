@@ -1,11 +1,11 @@
 package com.example.sparta.service;
 
+import com.example.sparta.domain.Reply;
 import com.example.sparta.domain.Review;
 import com.example.sparta.domain.User;
-import com.example.sparta.dto.ReviewDto.CreateReviewRequestDto;
-import com.example.sparta.dto.ReviewDto.CreateReviewResponseDto;
-import com.example.sparta.dto.ReviewDto.UpdateReviewRequestDto;
-import com.example.sparta.dto.ReviewDto.UpdateReviewResponseDto;
+import com.example.sparta.dto.LoginDto.MyPageResponseDto;
+import com.example.sparta.dto.ReviewDto.*;
+import com.example.sparta.repository.ReplyRepository;
 import com.example.sparta.repository.ReviewRepository;
 import com.example.sparta.shared.Exception.HttpException;
 import lombok.AllArgsConstructor;
@@ -13,11 +13,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+
+    private final ReplyRepository replyRepository;
 
     @Transactional
     public CreateReviewResponseDto createReview(
@@ -73,10 +78,19 @@ public class ReviewService {
     }
 
     @Transactional
-    public Review getReview(
+    public GetReviewWithReplyResponseDto getReviewWithReply(
             Long id
     ) {
-        return reviewRepository.findById(id)
+        Review foundReview = reviewRepository.findById(id)
                 .orElseThrow(() -> new HttpException("해당 리뷰가 없습니다.", HttpStatus.BAD_REQUEST));
+        List<Reply> foundReplyList = replyRepository.findAllByReviewId(foundReview.getId());
+
+        return GetReviewWithReplyResponseDto
+                .builder()
+                .id(foundReview.getId())
+                .email(foundReview.getUser().getEmail())
+                .content(foundReview.getContent())
+                .replyList(foundReplyList)
+                .build();
     }
 }

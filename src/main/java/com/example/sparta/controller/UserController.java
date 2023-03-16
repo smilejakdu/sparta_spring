@@ -4,6 +4,7 @@ import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.User;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
+import com.example.sparta.dto.LoginDto.MyPageResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.service.UserService;
 import com.example.sparta.shared.SwaggerConfig;
@@ -27,10 +28,10 @@ public class UserController {
     }
 
     @PostMapping()
-    public User createPerson(
+    public User createUser(
             @RequestBody CreatePersonRequestDto requestDto
     ) {
-        return userService.createPerson(requestDto);
+        return userService.createUser(requestDto);
     }
 
     @PostMapping("/login")
@@ -42,11 +43,17 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public User getMyPage(
+    public MyPageResponseDto getMyPage(
             @RequestHeader("Authorization") String jwtToken
     ) {
         System.out.println("jwtToken = " + jwtToken);
-        return userService.getMyPage(jwtToken);
+        User user = userService.getMyPage(jwtToken);
+        return MyPageResponseDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .age(user.getAge())
+                .build();
     }
 
     @PutMapping("/{id}")

@@ -4,6 +4,7 @@ import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.User;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
+import com.example.sparta.dto.LoginDto.MyPageResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.repository.UserRepository;
 import javax.servlet.http.Cookie;
@@ -27,7 +28,7 @@ public class UserService {
     }
 
     @Transactional
-    public User createPerson(
+    public User createUser(
             CreatePersonRequestDto requestDto
     ) {
         String email = requestDto.getEmail();

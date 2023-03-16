@@ -1,20 +1,13 @@
 package com.example.sparta.controller;
 
-
-import com.example.sparta.domain.Review;
 import com.example.sparta.domain.User;
-import com.example.sparta.dto.ReviewDto.CreateReviewRequestDto;
-import com.example.sparta.dto.ReviewDto.CreateReviewResponseDto;
-import com.example.sparta.dto.ReviewDto.UpdateReviewRequestDto;
-import com.example.sparta.dto.ReviewDto.UpdateReviewResponseDto;
+import com.example.sparta.dto.ReviewDto.*;
 import com.example.sparta.service.ReviewService;
 import com.example.sparta.service.UserService;
 import com.example.sparta.shared.SwaggerConfig;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Api(tags = SwaggerConfig.REVIEW)
 @RequiredArgsConstructor // final로 선언된 멤버 변수를 자동으로 생성합니다.
@@ -54,9 +47,9 @@ public class ReviewController {
     }
 
     @GetMapping("/{id}")
-    public List<Review> getReview(
+    public GetReviewWithReplyResponseDto getReviewWithReply(
             @PathVariable Long id
     ) {
-        return reviewService.getReview(id);
+        return reviewService.getReviewWithReply(id);
     }
 }

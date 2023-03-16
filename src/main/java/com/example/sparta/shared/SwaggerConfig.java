@@ -36,7 +36,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Sparta Swagger")
+                .title("mento Swagger")
                 .description("Swagger Docs")
                 .build();
     }
