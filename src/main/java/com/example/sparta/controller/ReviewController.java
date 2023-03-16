@@ -24,7 +24,7 @@ public class ReviewController {
              @RequestHeader("Authorization") String jwtToken
     ) {
         User foundPerson = userService.getMyPage(jwtToken);
-        return reviewService.createReview(foundPerson,requestDto);
+        return reviewService.createReview(foundPerson, requestDto);
     }
 
     @PutMapping("/{id}")

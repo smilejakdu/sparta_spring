@@ -14,6 +14,7 @@ public class Product extends Timestamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(nullable = false)

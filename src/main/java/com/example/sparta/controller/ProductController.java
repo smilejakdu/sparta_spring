@@ -26,7 +26,6 @@ public class ProductController {
     public List<Product> getProducts() {
         return productService.getProducts();
     }
-
     // 신규 상품 등록
     @PostMapping()
     public Product createProduct(@RequestBody ProductRequestDto requestDto) {

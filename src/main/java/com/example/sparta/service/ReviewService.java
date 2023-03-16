@@ -1,10 +1,11 @@
 package com.example.sparta.service;
 
+import com.example.sparta.domain.Product;
 import com.example.sparta.domain.Reply;
 import com.example.sparta.domain.Review;
 import com.example.sparta.domain.User;
-import com.example.sparta.dto.LoginDto.MyPageResponseDto;
 import com.example.sparta.dto.ReviewDto.*;
+import com.example.sparta.repository.ProductRepository;
 import com.example.sparta.repository.ReplyRepository;
 import com.example.sparta.repository.ReviewRepository;
 import com.example.sparta.shared.Exception.HttpException;
@@ -14,13 +15,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+
+    private final ProductRepository productRepository;
 
     private final ReplyRepository replyRepository;
 
@@ -29,9 +31,12 @@ public class ReviewService {
             User user,
             CreateReviewRequestDto requestDto
     ) {
+        Product foundProduct = productRepository.findById(requestDto.getProductId())
+                .orElseThrow(() -> new HttpException("해당 상품이 없습니다.", HttpStatus.BAD_REQUEST));
+
         Review newReview = Review.builder()
                 .content(requestDto.getContent())
-                .product(requestDto.getProduct())
+                .product(foundProduct)
                 .score(requestDto.getScore())
                 .user(user)
                 .build();
