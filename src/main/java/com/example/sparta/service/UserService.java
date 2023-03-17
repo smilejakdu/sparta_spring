@@ -53,16 +53,16 @@ public class UserService {
             LoginRequestDto requestDto,
             HttpServletResponse response
     ) {
-        User person = userRepository.findByEmail(requestDto.getEmail())
+        User foundUser = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("해당 person이 존재하지 않습니다."));
 
-        if (!passwordEncoder.matches(requestDto.getPassword(), person.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), foundUser.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        System.out.println("person.getId():" + person.getId());
+        System.out.println("person.getId():" + foundUser.getId());
 
         JwtService jwtService = new JwtService();
-        String jwtToken = jwtService.createToken(person.getId());
+        String jwtToken = jwtService.createToken(foundUser.getId());
         System.out.println("jwtToken:" + jwtToken);
         Cookie cookie = new Cookie("jwt", jwtToken);
         cookie.setPath("/");
@@ -70,7 +70,7 @@ public class UserService {
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return LoginResponseDto.builder()
-                .email(person.getEmail())
+                .email(foundUser.getEmail())
                 .token(jwtToken)
                 .message("SUCCESS")
                 .build();

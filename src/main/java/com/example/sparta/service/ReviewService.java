@@ -88,6 +88,7 @@ public class ReviewService {
     ) {
         Review foundReview = reviewRepository.findById(id)
                 .orElseThrow(() -> new HttpException("해당 리뷰가 없습니다.", HttpStatus.BAD_REQUEST));
+
         List<Reply> foundReplyList = replyRepository.findAllByReviewId(foundReview.getId());
 
         return GetReviewWithReplyResponseDto

@@ -1,8 +1,10 @@
 package com.example.sparta.controller;
 
 import com.example.sparta.domain.Product;
-import com.example.sparta.dto.ProductMypriceRequestDto;
-import com.example.sparta.dto.ProductRequestDto;
+import com.example.sparta.dto.CreateProductRequestDto;
+import com.example.sparta.dto.ProductDto.GetProductWithReviewResponseDto;
+import com.example.sparta.dto.ProductDto.UpdateProductResponseDto;
+import com.example.sparta.dto.UpdateProductRequestDto;
 import com.example.sparta.service.ProductService;
 import com.example.sparta.shared.SwaggerConfig;
 import io.swagger.annotations.Api;
@@ -26,16 +28,21 @@ public class ProductController {
     public List<Product> getProducts() {
         return productService.getProducts();
     }
-    // 신규 상품 등록
+
+    @GetMapping("/{id}")
+    public GetProductWithReviewResponseDto getProduct(@PathVariable Long id) {
+        return productService.getProduct(id);
+    }
+
     @PostMapping()
-    public Product createProduct(@RequestBody ProductRequestDto requestDto) {
+    public Product createProduct(@RequestBody CreateProductRequestDto requestDto) {
         return productService.createProduct(requestDto);
     }
 
     @PutMapping("/{id}")
-    public Long updateProduct(
+    public UpdateProductResponseDto updateProduct(
             @PathVariable Long id,
-            @RequestBody ProductMypriceRequestDto requestDto
+            @RequestBody UpdateProductRequestDto requestDto
     ) {
         return productService.updateProduct(id, requestDto);
     }

@@ -27,16 +27,18 @@ public class Product extends Timestamped {
     private String link;
 
     @Column(nullable = false)
-    private int lprice;
-
-    @Column(nullable = false)
-    private int myprice;
+    private int price;
 
     @Builder
-    public Product(String title, String image, String link, int lprice) {
+    public Product(
+            String title,
+            String image,
+            String link,
+            int price
+    ) {
         this.title = title;
         this.image = image;
         this.link = link;
-        this.lprice = lprice;
+        this.price = price;
     }
 }
