@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = SwaggerConfig.REVIEW)
 @RequiredArgsConstructor // final로 선언된 멤버 변수를 자동으로 생성합니다.
 @RestController // JSON으로 데이터를 주고받음을 선언합니다.
-@CrossOrigin(origins = "http://localhost:3000") // CORS를 허용합니다.
 @RequestMapping("/api/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
@@ -34,7 +33,7 @@ public class ReviewController {
             @RequestHeader("Authorization") String jwtToken
     ) {
         User foundPerson = userService.getMyPage(jwtToken);
-        return reviewService.updateReview(id,foundPerson,requestDto);
+        return reviewService.updateReview(id, foundPerson, requestDto);
     }
 
     @DeleteMapping("/{id}")

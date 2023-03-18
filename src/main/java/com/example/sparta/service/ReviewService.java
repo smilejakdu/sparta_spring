@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -41,13 +42,13 @@ public class ReviewService {
                 .user(user)
                 .build();
 
-        Review review = reviewRepository.save(newReview);
+        Review savedReview = reviewRepository.save(newReview);
         return CreateReviewResponseDto.builder()
-                .id(review.getId())
-                .productId(review.getProduct().getId())
-                .content(review.getContent())
-                .username(review.getUser().getName())
-                .createdAt(review.getCreatedAt())
+                .id(savedReview.getId())
+                .productId(savedReview.getProduct().getId())
+                .content(savedReview.getContent())
+                .username(savedReview.getUser().getName())
+                .createdAt(savedReview.getCreatedAt())
                 .build();
     }
 
@@ -61,15 +62,17 @@ public class ReviewService {
                         .orElseThrow(() -> new HttpException("해당 리뷰가 없습니다.", HttpStatus.BAD_REQUEST));
 
         foundReview.setContent(requestDto.getContent());
+        foundReview.setScore(requestDto.getScore());
         Review savedReview = reviewRepository.save(foundReview);
+
         return UpdateReviewResponseDto
                 .builder()
                 .id(savedReview.getId())
                 .content(savedReview.getContent())
-                .user(savedReview.getUser())
+                .userId(savedReview.getUser().getId())
+                .email(savedReview.getUser().getEmail())
                 .build();
     }
-
 
     @Transactional
     public Long deleteReview(
@@ -89,7 +92,16 @@ public class ReviewService {
         Review foundReview = reviewRepository.findById(id)
                 .orElseThrow(() -> new HttpException("해당 리뷰가 없습니다.", HttpStatus.BAD_REQUEST));
 
-        List<Reply> foundReplyList = replyRepository.findAllByReviewId(foundReview.getId());
+        List<GetReplyResponseDto> foundReplyList = replyRepository.findAllByReviewId(foundReview.getId())
+                .stream()
+                .map(reply -> GetReplyResponseDto
+                        .builder()
+                        .id(reply.getId())
+                        .email(reply.getUser().getEmail())
+                        .content(reply.getContent())
+                        .createdAt(reply.getReview().getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
 
         return GetReviewWithReplyResponseDto
                 .builder()

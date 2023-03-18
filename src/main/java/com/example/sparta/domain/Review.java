@@ -4,8 +4,11 @@ import com.example.sparta.shared.Timestamped;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -15,20 +18,19 @@ public class Review extends Timestamped {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @Column(name = "content", nullable = false)
     private String content;
-
     @Column(name = "score", nullable = false)
     private int score;
-
     @ManyToOne
     private Product product;
-
     @ManyToOne
     private User user;
+    @CreatedDate // 생성일자임을 나타냅니다.
+    private LocalDateTime createdAt;
 
-    private String createdAt;
+    @LastModifiedDate // 마지막 수정일자임을 나타냅니다.
+    private LocalDateTime modifiedAt;
 
     @Builder
     public Review(
@@ -36,7 +38,7 @@ public class Review extends Timestamped {
             int score,
             Product product,
             User user,
-            String createdAt
+            LocalDateTime createdAt
     ) {
         this.content = content;
         this.score = score;

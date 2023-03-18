@@ -3,6 +3,8 @@ package com.example.sparta.dto.ReviewDto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class CreateReviewResponseDto {
     private Long id;
@@ -13,7 +15,7 @@ public class CreateReviewResponseDto {
 
     private String username;
 
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @Builder
     public CreateReviewResponseDto(
@@ -21,7 +23,7 @@ public class CreateReviewResponseDto {
             Long productId,
             String content,
             String username,
-            String createdAt
+            LocalDateTime createdAt
     ) {
         this.id = id;
         this.content = content;

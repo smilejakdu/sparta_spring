@@ -14,10 +14,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class SwaggerConfig {
     public static final String USER = "USER";
-
     public static final String PRODUCT ="PRODUCT";
-
     public static final String REVIEW = "REVIEW";
+    public static final String REPLY = "REPLY";
 
     @Bean
     public Docket api() {

@@ -14,14 +14,14 @@ public class GetReviewWithReplyResponseDto {
 
     private String email;
 
-    private List<Reply> replyList;
+    private List<GetReplyResponseDto> replyList;
 
     @Builder
     public GetReviewWithReplyResponseDto(
             Long id,
             String content,
             String email,
-            List<Reply> replyList
+            List<GetReplyResponseDto> replyList
     ) {
         this.id = id;
         this.content = content;
