@@ -25,8 +25,8 @@ public class ProductController {
 
     // 등록된 전체 상품 목록 조회
     @GetMapping()
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public List<Product> getProductList() {
+        return productService.getProductList();
     }
 
     @GetMapping("/{id}")

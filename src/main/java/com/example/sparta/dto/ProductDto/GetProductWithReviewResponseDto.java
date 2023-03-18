@@ -1,6 +1,6 @@
 package com.example.sparta.dto.ProductDto;
 
-import com.example.sparta.domain.Review;
+import com.example.sparta.dto.ReviewDto.GetUserIdAndEmailResponseDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,18 +14,26 @@ public class GetProductWithReviewResponseDto {
 
     private String image;
 
-    private List<Review> reviews;
+    private String link;
+
+    private int price;
+
+    private List<GetUserIdAndEmailResponseDto> reviews;
 
     @Builder
     public GetProductWithReviewResponseDto(
             Long id,
             String title,
             String image,
-            List<Review> reviews
+            String link,
+            int price,
+            List<GetUserIdAndEmailResponseDto> reviews
     ) {
         this.id = id;
         this.title = title;
         this.image = image;
+        this.link = link;
+        this.price = price;
         this.reviews = reviews;
     }
 }

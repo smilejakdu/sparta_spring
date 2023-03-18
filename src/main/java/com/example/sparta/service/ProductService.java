@@ -1,10 +1,10 @@
 package com.example.sparta.service;
 
 import com.example.sparta.domain.Product;
-import com.example.sparta.domain.Review;
 import com.example.sparta.dto.CreateProductRequestDto;
 import com.example.sparta.dto.ProductDto.GetProductWithReviewResponseDto;
 import com.example.sparta.dto.ProductDto.UpdateProductResponseDto;
+import com.example.sparta.dto.ReviewDto.GetUserIdAndEmailResponseDto;
 import com.example.sparta.dto.UpdateProductRequestDto;
 import com.example.sparta.repository.ProductRepository;
 import com.example.sparta.repository.ReviewRepository;
@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +25,7 @@ public class ProductService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public List<Product> getProducts() {
+    public List<Product> getProductList() {
         return productRepository.findAll();
     }
 
@@ -32,12 +34,23 @@ public class ProductService {
         Product foundProduct = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 상품이 없습니다. id=" + id));
 
-        List<Review> foundReviewList = reviewRepository.findAllByProduct(id);
+        List<GetUserIdAndEmailResponseDto> foundReviewList = reviewRepository.findAllByProduct(foundProduct)
+                .stream()
+                .map(review -> GetUserIdAndEmailResponseDto.builder()
+                        .userId(review.getUser().getId())
+                        .email(review.getUser().getEmail())
+                        .reviewId(review.getId())
+                        .content(review.getContent())
+                        .score(review.getScore())
+                        .build())
+                .collect(Collectors.toList());
 
         return GetProductWithReviewResponseDto.builder()
                 .id(foundProduct.getId())
                 .title(foundProduct.getTitle())
                 .image(foundProduct.getImage())
+                .link(foundProduct.getLink())
+                .price(foundProduct.getPrice())
                 .reviews(foundReviewList)
                 .build();
     }

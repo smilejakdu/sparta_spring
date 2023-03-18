@@ -1,5 +1,6 @@
 package com.example.sparta.repository;
 
+import com.example.sparta.domain.Product;
 import com.example.sparta.domain.Review;
 import com.example.sparta.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,5 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByIdAndUser(Long reviewId, User user);
 
-    List<Review> findAllByProduct(Long productId);
+    List<Review> findAllByProduct(Product product);
 }
