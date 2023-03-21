@@ -3,6 +3,7 @@ package com.example.sparta.service;
 import com.example.sparta.domain.Product;
 import com.example.sparta.dto.CreateProductRequestDto;
 import com.example.sparta.dto.ProductDto.GetProductWithReviewResponseDto;
+import com.example.sparta.dto.ProductDto.GetProductWithScoreResponseDto;
 import com.example.sparta.dto.ProductDto.UpdateProductResponseDto;
 import com.example.sparta.dto.ReviewDto.GetUserIdAndEmailResponseDto;
 import com.example.sparta.dto.UpdateProductRequestDto;
@@ -14,19 +15,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public List<Product> getProductList() {
-        return productRepository.findAll();
+    public List<GetProductWithScoreResponseDto> getProductList() {
+        return productRepository.findProductWithScore()
+                .stream()
+                .map(product -> GetProductWithScoreResponseDto.builder()
+                        .id(product.getId())
+                        .title(product.getTitle())
+                        .image(product.getImage())
+                        .link(product.getLink())
+                        .price(product.getPrice())
+                        .score(product.getScore())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Transactional

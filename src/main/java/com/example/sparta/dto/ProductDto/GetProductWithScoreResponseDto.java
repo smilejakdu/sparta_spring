@@ -1,34 +1,31 @@
 package com.example.sparta.dto.ProductDto;
 
-import com.example.sparta.dto.ReviewDto.GetUserIdAndEmailResponseDto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class GetProductWithReviewResponseDto {
+public class GetProductWithScoreResponseDto {
     private Long id;
     private String title;
     private String image;
     private String link;
     private int price;
-    private List<GetUserIdAndEmailResponseDto> reviews;
+    private int score;
 
     @Builder
-    public GetProductWithReviewResponseDto(
+    public GetProductWithScoreResponseDto(
             Long id,
             String title,
             String image,
             String link,
             int price,
-            List<GetUserIdAndEmailResponseDto> reviews
+            int score
     ) {
         this.id = id;
         this.title = title;
         this.image = image;
         this.link = link;
         this.price = price;
-        this.reviews = reviews;
+        this.score = score;
     }
 }

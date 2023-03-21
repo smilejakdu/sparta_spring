@@ -3,6 +3,7 @@ package com.example.sparta.controller;
 import com.example.sparta.domain.Product;
 import com.example.sparta.dto.CreateProductRequestDto;
 import com.example.sparta.dto.ProductDto.GetProductWithReviewResponseDto;
+import com.example.sparta.dto.ProductDto.GetProductWithScoreResponseDto;
 import com.example.sparta.dto.ProductDto.UpdateProductResponseDto;
 import com.example.sparta.dto.UpdateProductRequestDto;
 import com.example.sparta.service.ProductService;
@@ -20,12 +21,11 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000") // CORS를 허용합니다.
 @RequestMapping("/api/products")
 public class ProductController {
-
     private final ProductService productService;
 
     // 등록된 전체 상품 목록 조회
     @GetMapping()
-    public List<Product> getProductList() {
+    public List<GetProductWithScoreResponseDto> getProductList() {
         return productService.getProductList();
     }
 

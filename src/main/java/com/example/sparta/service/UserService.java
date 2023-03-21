@@ -1,19 +1,18 @@
 package com.example.sparta.service;
 
-import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.User;
+import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
-import com.example.sparta.dto.LoginDto.MyPageResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.repository.UserRepository;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
@@ -67,6 +66,7 @@ public class UserService {
         Cookie cookie = new Cookie("jwt", jwtToken);
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24 * 7); // 1 week
+        cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return LoginResponseDto.builder()
