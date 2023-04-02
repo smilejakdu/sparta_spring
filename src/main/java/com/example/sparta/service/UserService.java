@@ -6,7 +6,9 @@ import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
 import com.example.sparta.repository.UserRepository;
+import com.example.sparta.shared.Exception.HttpException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,7 +95,7 @@ public class UserService {
             UpdatePersonRequestDto requestDto
     ) {
         User person = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
+                () -> new HttpException("해당 person이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
         );
 
         person.setName(requestDto.getName());
@@ -105,7 +107,7 @@ public class UserService {
     @Transactional
     public Long deletePerson(Long id) {
         User person = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
+                () -> new HttpException("해당 person이 존재하지 않습니다.",HttpStatus.NOT_FOUND)
         );
 
         userRepository.delete(person);
