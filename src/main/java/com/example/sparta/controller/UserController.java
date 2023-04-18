@@ -1,11 +1,13 @@
 package com.example.sparta.controller;
 
+import com.example.sparta.domain.Review;
 import com.example.sparta.dto.CreatePersonRequestDto;
 import com.example.sparta.domain.User;
 import com.example.sparta.dto.LoginDto.LoginRequestDto;
 import com.example.sparta.dto.LoginDto.LoginResponseDto;
 import com.example.sparta.dto.LoginDto.MyPageResponseDto;
 import com.example.sparta.dto.UpdatePersonRequestDto;
+import com.example.sparta.service.ReviewService;
 import com.example.sparta.service.UserService;
 import com.example.sparta.shared.SwaggerConfig;
 import io.swagger.annotations.Api;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
+    private final ReviewService reviewService;
 
     @GetMapping()
     public List<User> getPeople() {
@@ -48,11 +51,14 @@ public class UserController {
     ) {
         System.out.println("jwtToken = " + jwtToken);
         User user = userService.getMyPage(jwtToken);
+        List<Review> reviews = reviewService.get(user.getId());
+
         return MyPageResponseDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .age(user.getAge())
+                .reviews(reviews)
                 .build();
     }
 

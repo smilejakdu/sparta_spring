@@ -84,8 +84,10 @@ public class UserService {
     ) {
         JwtService jwtService = new JwtService();
         Long userId = jwtService.getUserIdFromToken(jwtToken);
+//      builder 를 이용해서 MyPageResponseDto
+
         return userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 person이 존재하지 않습니다.")
+                () -> new HttpException("해당 person이 존재하지 않습니다.", HttpStatus.NOT_FOUND)
         );
     }
 

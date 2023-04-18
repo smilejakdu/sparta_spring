@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+import java.util.List;
 
 @EnableSwagger2
 @Configuration
@@ -37,6 +39,14 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("mento Swagger")
                 .description("Swagger Docs")
+                .contact(new Contact("Your Name", "Your Website", "Your Email"))
+                .license("Apache License Version 2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+                .version("1.0")
                 .build();
+    }
+
+    private List<SecurityScheme> securitySchemes() {
+       return List.of(new ApiKey("jwt", "Authorization", "header"));
     }
 }

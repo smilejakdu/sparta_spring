@@ -39,7 +39,7 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        System.out.println("claims.getSubject() = " + claims.getSubject());
+
         return Long.parseLong(claims.getSubject());
     }
 }
