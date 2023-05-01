@@ -1,4 +1,4 @@
-package com.example.sparta.dto.ReviewDto;
+package com.example.sparta.dto.ReviewDto.ResponseDto;
 
 import lombok.Builder;
 import lombok.Data;

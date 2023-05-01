@@ -51,7 +51,7 @@ public class UserController {
     ) {
         System.out.println("jwtToken = " + jwtToken);
         User user = userService.getMyPage(jwtToken);
-        List<Review> reviews = reviewService.get(user.getId());
+        List<Review> reviews = reviewService.getReviewByUser(user);
 
         return MyPageResponseDto.builder()
                 .id(user.getId())

@@ -2,6 +2,8 @@ package com.example.sparta.controller;
 
 import com.example.sparta.domain.User;
 import com.example.sparta.dto.ReviewDto.*;
+import com.example.sparta.dto.ReviewDto.RequestDto.CreateReviewRequestDto;
+import com.example.sparta.dto.ReviewDto.ResponseDto.CreateReviewResponseDto;
 import com.example.sparta.service.ReviewService;
 import com.example.sparta.service.UserService;
 import com.example.sparta.shared.SwaggerConfig;

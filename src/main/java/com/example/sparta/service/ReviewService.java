@@ -1,10 +1,11 @@
 package com.example.sparta.service;
 
 import com.example.sparta.domain.Product;
-import com.example.sparta.domain.Reply;
 import com.example.sparta.domain.Review;
 import com.example.sparta.domain.User;
 import com.example.sparta.dto.ReviewDto.*;
+import com.example.sparta.dto.ReviewDto.RequestDto.CreateReviewRequestDto;
+import com.example.sparta.dto.ReviewDto.ResponseDto.CreateReviewResponseDto;
 import com.example.sparta.repository.ProductRepository;
 import com.example.sparta.repository.ReplyRepository;
 import com.example.sparta.repository.ReviewRepository;
@@ -50,6 +51,13 @@ public class ReviewService {
                 .username(savedReview.getUser().getName())
                 .createdAt(savedReview.getCreatedAt())
                 .build();
+    }
+
+    @Transactional
+    public List<Review> getReviewByUser(
+            User user
+    ) {
+        return reviewRepository.findReviewByUser(user);
     }
 
     @Transactional
