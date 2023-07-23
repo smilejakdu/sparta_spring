@@ -2,6 +2,7 @@ package com.example.sparta.domain;
 
 
 import com.example.sparta.shared.Timestamped;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@Table(name = "replies")
 public class Reply extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -25,15 +29,4 @@ public class Reply extends Timestamped {
 
     @Column(name = "content", nullable = false)
     private String content;
-
-    @Builder
-    public Reply(
-            User user,
-            Review review,
-            String content
-    ) {
-        this.user = user;
-        this.review = review;
-        this.content = content;
-    }
 }

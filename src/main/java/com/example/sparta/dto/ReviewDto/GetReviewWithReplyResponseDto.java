@@ -1,6 +1,5 @@
 package com.example.sparta.dto.ReviewDto;
 
-import com.example.sparta.domain.Reply;
 import lombok.Builder;
 import lombok.Data;
 

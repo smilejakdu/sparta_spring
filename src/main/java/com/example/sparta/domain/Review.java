@@ -1,6 +1,7 @@
 package com.example.sparta.domain;
 
 import com.example.sparta.shared.Timestamped;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@Table(name = "reviews")
 public class Review extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -31,19 +35,4 @@ public class Review extends Timestamped {
 
     @LastModifiedDate // 마지막 수정일자임을 나타냅니다.
     private LocalDateTime modifiedAt;
-
-    @Builder
-    public Review(
-            String content,
-            int score,
-            Product product,
-            User user,
-            LocalDateTime createdAt
-    ) {
-        this.content = content;
-        this.score = score;
-        this.product = product;
-        this.user = user;
-        this.createdAt = createdAt;
-    }
 }

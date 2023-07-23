@@ -2,6 +2,7 @@ package com.example.sparta.domain;
 
 import com.example.sparta.shared.Enum.Age;
 import com.example.sparta.shared.Timestamped;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name="users")
 public class User extends Timestamped {
 
     @Id
@@ -30,12 +34,4 @@ public class User extends Timestamped {
     @Column(name = "age", nullable = false)
     @Enumerated(EnumType.STRING)
     private Age age;
-
-    @Builder
-    public User(String name, String password, String email, Age age) {
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.age = age;
-    }
 }
